@@ -1,5 +1,6 @@
 import { LogManager } from 'aurelia-framework';
 
+import { apiRequestLogger } from './interceptors';
 import { BackendAppender } from './log-appender';
 
 const logger = LogManager.getLogger('AureliaBackendLogging');
@@ -21,3 +22,7 @@ export function configure(_, config) {
 export function flushQueue() {
   appender.flushQueue();
 }
+
+export {
+  apiRequestLogger
+};
