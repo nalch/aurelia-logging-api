@@ -23,7 +23,7 @@ export class BackendAppender {
     if (config) {
       Object.assign(this.config, config);
     }
-    this.requestQueue = new RequestQueue(config);
+    this.requestQueue = new RequestQueue(config || {});
 
     logger.info(`Init BackendAppender. Send to ${this.config.targetUrl}`);
   }
