@@ -6,16 +6,26 @@ import { BackendAppender } from './log-appender';
 const logger = LogManager.getLogger('AureliaBackendLogging');
 let appender;
 
+const defaultConfig = {
+  catchWindowErrors: false,
+  catchPromiseRejections: false,
+  flushOnUnload: true
+};
+
 export function configure(_, config) {
-  appender = new BackendAppender(config);
+  const mergedConfig = Object.assign(defaultConfig, config);
+  appender = new BackendAppender(mergedConfig);
   LogManager.addAppender(appender);
 
-  if (config.catchWindowErrors) {
+  if (mergedConfig.catchWindowErrors) {
     window.onerror = logger.error;
   }
-  if (config.catchPromiseRejections) {
+  if (mergedConfig.catchPromiseRejections) {
     window.onunhandledrejection =
       (event) => logger.error('unhandledrejection', event.reason.message);
+  }
+  if (mergedConfig.flushOnUnload) {
+    window.onunload = () => flushQueue();
   }
 }
 

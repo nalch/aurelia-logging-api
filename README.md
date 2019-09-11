@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/nalch/aurelia-logging-api.svg?branch=master)](https://travis-ci.org/nalch/aurelia-logging-api)
 # `aurelia-logging-api`
 
 > Catch, bundle and send all aurelia logs to an api endpoint.
@@ -48,7 +49,8 @@ config = {
   throttleRetries: true,
   retryIntervals: [5, 60, 3600],
   catchWindowErrors: false,
-  catchPromiseRejections: false
+  catchPromiseRejections: false,
+  flushOnUnload: true
 };
 aurelia.use.plugin('aurelia-logging-api', config);
 // for webpack user, use PLATFORM.moduleName wrapper
@@ -70,6 +72,7 @@ aurelia.use.plugin(PLATFORM.moduleName('aurelia-logging-api'), config);
 | retryIntervals         | [5, 60, 3600] | Intervals to wait between retrying a failed log request. If more fails occur than intervals are given, the last value is used. After a successfull request all data is retried without waiting. |
 | catchWindowErrors      | false         | Catch all javascript window errors and log them as errors. |
 | catchPromiseRejections | false         | Catch all unhandled promise rejections and log them as errors. |
+| flushOnUnload          | false         | Flush the queue, when the window is reloaded or closed. |
 
 ## Additional error catching
 `aurelia-logging-api` provides some convenience function to catch and log the following errors in the application.
