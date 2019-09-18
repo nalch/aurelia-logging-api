@@ -31,7 +31,8 @@ npm i aurelia-logging-api --save
 ```
 
 ## Usage
-`aurelia-logging-api` uses `aurelia-fetch-client` to send logs to a server by simply providing it with the application's client or creating a new one.
+`aurelia-logging-api` uses `aurelia-fetch-client` or ´aurelia-http-client´ to send logs to a server by providing it with the application's client 
+or creating a new one. This makes reusing the connection configuration and authorization easier.
 Use the plugin by loading it in the app's `main.js`. The configuration's default values are shown, but can be changed or omitted.
 ```js
 import { HttpClient } from 'aurelia-fetch-client';
@@ -62,7 +63,7 @@ aurelia.use.plugin(PLATFORM.moduleName('aurelia-logging-api'), config);
 | Configuration Key      | Default       | Description |
 | ---------------------- | ------------- | ----------- |
 | targetUrl              | ''            | Url to send the logs to. |
-| client                 | null          | The http fetch client to be used to send the logs. Can be intercepted to log the requests/responses as well. |
+| client                 | null          | The http (fetch) client to be used to send the logs. Can be intercepted to log the requests/responses as well. |
 | bufferSize             | 100           | Number of log messages to be bundled until the batch is sent to the server. |
 | maxLevel               | debug (40)    | Max level to include in the collection of logs. Usually used to restrict lower level priority logs to the frontend instead of sending to the api. |
 | joinMessage            | false         | If set to a string log message data is joined by the separator and sent as string instead of list. |

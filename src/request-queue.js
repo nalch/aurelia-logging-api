@@ -1,10 +1,11 @@
 import { LogManager, inject } from 'aurelia-framework';
 import { HttpClient, json } from 'aurelia-fetch-client';
+import { HttpClient as DeprecatedClient } from 'aurelia-http-client';
 
 const logger = LogManager.getLogger('RequestQueue');
 
 
-@inject(HttpClient)
+@inject(HttpClient, DeprecatedClient)
 export class RequestQueue {
   config = {
     requestMethod: 'post',
@@ -18,16 +19,16 @@ export class RequestQueue {
   failedAttempts = 0;
   runningRequest = false;
 
-  constructor(config, client) {
+  constructor(config, client, deprecatedClient) {
     if (config) {
       Object.assign(this.config, config);
     }
-    this.client = config.client || client;
+    this.client = config.client || client || deprecatedClient;
     if (!this.client) {
       throw new Error(
         'No http client found. Pass the client in the config under the key ' +
-        '"client" or register it under aurelia-fetch-client\'s HttpClient ' +
-        'class in the DI container.'
+        '"client" or register it under aurelia-fetch-client\'s or ' +
+        'aurelia-http-client\'s HttpClient class in the DI container.'
       );
     }
   }
@@ -65,6 +66,16 @@ export class RequestQueue {
     );
   }
 
+  sendWithClient(url, payload) {
+    if (this.client instanceof HttpClient) {
+      return this.client.fetch(this.config.targetUrl, payload);
+    } else if (this.client instanceof DeprecatedClient) {
+      const clientMethod = this.client[
+        this.config.requestMethod].bind(this.client);
+      return clientMethod(this.config.targetUrl, payload);
+    }
+  }
+
   sendRequest() {
     if (this.requestQueue.length === 0) {
       return;
@@ -72,7 +83,7 @@ export class RequestQueue {
 
     this.runningRequest = true;
     const payload = this.requestQueue[0];
-    this.client.fetch(this.config.targetUrl, payload)
+    this.sendWithClient(this.config.targetUrl, payload)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.status);
