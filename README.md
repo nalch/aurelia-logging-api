@@ -31,7 +31,7 @@ npm i aurelia-logging-api --save
 ```
 
 ## Usage
-`aurelia-logging-api` uses `aurelia-fetch-client` or ´aurelia-http-client´ to send logs to a server by providing it with the application's client 
+`aurelia-logging-api` uses `aurelia-fetch-client` or `aurelia-http-client` to send logs to a server by providing it with the application's client 
 or creating a new one. This makes reusing the connection configuration and authorization easier.
 Use the plugin by loading it in the app's `main.js`. The configuration's default values are shown, but can be changed or omitted.
 ```js
