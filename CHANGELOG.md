@@ -1,3 +1,18 @@
+# [1.2.0](https://github.com/nalch/aurelia-logging-api/compare/v1.0.2...v1.2.0) (2019-09-21)
+
+
+### Bug Fixes
+
+* ci version update ([3bcbba5](https://github.com/nalch/aurelia-logging-api/commit/3bcbba5))
+
+
+### Features
+
+* Add compatibility with aurelia-http-client ([83e607c](https://github.com/nalch/aurelia-logging-api/commit/83e607c))
+* Register appender with dependency injection ([b114c9b](https://github.com/nalch/aurelia-logging-api/commit/b114c9b))
+
+
+
 ## [1.1.0](https://github.com/nalch/aurelia-logging-api/compare/v1.0.3...v1.1.0) (2019-09-18)
 
 
