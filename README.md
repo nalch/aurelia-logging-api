@@ -58,6 +58,25 @@ aurelia.use.plugin('aurelia-logging-api', config);
 aurelia.use.plugin(PLATFORM.moduleName('aurelia-logging-api'), config);
 ```
 
+## Using the Appender
+All used logging appenders are registered with Aurelia's dependency injection under the `BackendAppender` class:
+```js
+...
+
+import { BackendAppender } from 'aurelia-logging-api';
+
+@inject(BackendAppender)
+class App {
+  constructor(appender) {
+    this.appender = appender;
+  }
+
+  irregularSend() {
+    this.appender.requestQueue.sendRequest();
+  }
+}
+```
+
 ## Configuration
 
 | Configuration Key      | Default       | Description |

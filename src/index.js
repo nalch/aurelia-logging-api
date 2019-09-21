@@ -12,7 +12,7 @@ const defaultConfig = {
   flushOnUnload: true
 };
 
-export function configure(_, config) {
+export function configure(aurelia, config) {
   const mergedConfig = Object.assign(defaultConfig, config);
   appender = new BackendAppender(mergedConfig);
   LogManager.addAppender(appender);
@@ -27,6 +27,8 @@ export function configure(_, config) {
   if (mergedConfig.flushOnUnload) {
     window.onunload = () => flushQueue();
   }
+
+  aurelia.container.registerInstance(BackendAppender, appender);
 }
 
 export function flushQueue() {
@@ -34,5 +36,6 @@ export function flushQueue() {
 }
 
 export {
+  BackendAppender,
   apiRequestLogger
 };
