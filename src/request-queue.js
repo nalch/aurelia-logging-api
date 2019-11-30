@@ -92,7 +92,7 @@ export class RequestQueue {
         this.failedAttempts = 0;
       })
       .catch((error) => {
-        logger.error(`Couldn't send logs to endpoint: ${error}`);
+        console.error(`Couldn't send logs to endpoint: ${error}`);
         this.failedAttempts += 1;
       })
       .finally(() => {
