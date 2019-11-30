@@ -1,9 +1,6 @@
-import { LogManager, inject } from 'aurelia-framework';
+import { inject } from 'aurelia-framework';
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { HttpClient as DeprecatedClient } from 'aurelia-http-client';
-
-const logger = LogManager.getLogger('RequestQueue');
-
 
 @inject(HttpClient, DeprecatedClient)
 export class RequestQueue {
@@ -92,7 +89,7 @@ export class RequestQueue {
         this.failedAttempts = 0;
       })
       .catch((error) => {
-        console.error(`Couldn't send logs to endpoint: ${error}`);
+        console.error(`Couldn't send logs to endpoint: ${error}`);  // eslint-disable-line no-console
         this.failedAttempts += 1;
       })
       .finally(() => {

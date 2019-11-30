@@ -5,7 +5,6 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import { RequestQueue } from './request-queue';
-import { log } from 'util';
 
 const logger = LogManager.getLogger('BackendAppender');
 
