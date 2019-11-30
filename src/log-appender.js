@@ -5,6 +5,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import { RequestQueue } from './request-queue';
+import { log } from 'util';
 
 const logger = LogManager.getLogger('BackendAppender');
 
@@ -12,7 +13,7 @@ export class BackendAppender {
   config = {
     targetUrl: '',
     bufferSize: 100,
-    maxLevel: logLevel.debug,
+    minLevel: logLevel.debug,
     joinMessage: false
   };
   messageBuffer = [];
@@ -28,15 +29,31 @@ export class BackendAppender {
     logger.info(`Init BackendAppender. Send to ${this.config.targetUrl}`);
   }
 
-  log(source, ...rest) {
-    if (source.level > this.config.maxLevel) {
+  debug(source, ...rest) {
+    return this.log(source, logLevel.debug, ...rest);
+  }
+
+  info(source, ...rest) {
+    return this.log(source, logLevel.info, ...rest);
+  }
+
+  warn(source, ...rest) {
+    return this.log(source, logLevel.warn, ...rest);
+  }
+
+  error(source, ...rest) {
+    return this.error(source, logLevel.error, ...rest);
+  }
+
+  log(source, level, ...rest) {
+    if (level > this.config.minLevel) {
       return;
     }
 
     this.messageBuffer.push({
       timestamp: moment(),
       logger: source.id,
-      loglevel: this.getLogLevelName(source.level),
+      loglevel: this.getLogLevelName(level),
       message: this.getMessage(rest)
     });
 
@@ -59,9 +76,4 @@ export class BackendAppender {
       ([logName, logNumber]) => number === logNumber)[0];
     return name || number;
   }
-
-  debug = this.log;
-  info = this.log;
-  error = this.log;
-  warn = this.log;
 }

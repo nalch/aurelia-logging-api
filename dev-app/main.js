@@ -4,6 +4,7 @@ import 'regenerator-runtime/runtime';
 import environment from './environment';
 
 import { HttpClient } from 'aurelia-fetch-client';
+import { logLevel } from 'aurelia-logging';
 
 import { apiRequestLogger } from 'resources/interceptors';
 
@@ -20,6 +21,7 @@ export function configure(aurelia) {
     targetUrl: 'logs',
     bufferSize: 100,
     client: client,
+    minLevel: logLevel.info,
     joinMessage: false,
     catchWindowErrors: true,
     catchPromiseRejections: true
