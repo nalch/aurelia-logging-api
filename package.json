@@ -1,7 +1,7 @@
 {
   "name": "aurelia-logging-api",
   "description": "Bundle and send Aurelia logs to an api endpoint catching window errors and api requests/responses",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/nalch/aurelia-logging-api"
