@@ -41,7 +41,7 @@ export class BackendAppender {
   }
 
   error(source, ...rest) {
-    return this.error(source, logLevel.error, ...rest);
+    return this.log(source, logLevel.error, ...rest);
   }
 
   log(source, level, ...rest) {
