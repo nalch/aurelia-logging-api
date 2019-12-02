@@ -4,11 +4,11 @@ const logger = LogManager.getLogger('ApiRequestLogger');
 
 export const apiRequestLogger = {
   request(request) {
-    logger.info('Request to api', request);
+    logger.info('Request to api', request.url, request.method);
     return request;
   },
   response(response) {
-    logger.info('Response from api', response);
+    logger.info('Response from api', response.url, response.status);
     return response;
   }
 };
